@@ -1,0 +1,61 @@
+%YAML 1.2
+---
+name: BBScript
+file_extensions: [bbscript]
+scope: source.bbscript
+
+contexts:
+  main:
+    - match: '\b(upon|beginState|beginLabel|beginSubroutine|Unknown78|beginPreSubroutine|beginPostSubroutine)\b'
+      scope: entity.name.function.bbscript
+
+    - match: '\b(endUpon|endState|endSubroutine|endLabel)\b'
+      scope: entity.name.function.bbscript
+
+    - match: '\b([1-9]\d*|0)\b'
+      scope: constant.numeric.bbscript
+
+    - match: '\b(if|endIf|ifNot|endElse|ifOperation|ifNotInObject|ifOperationInObject)\b'
+      scope: keyword.control.bbscript
+
+    - match: '\b(else)\b'
+      scope: meta.statement.conditional.else.bbscript
+
+    - match: '\bsprite\b'
+      scope: keyword.other.bbscript
+
+    - match: '\b(callSubroutine|callSubroutineWithArgs)\b'
+      scope: meta.function-call variable.function
+
+    - match: '\b(IMMEDIATE|VARIABLE|STATIC|FRAME_STEP)\b'
+      scope: constant.language
+
+    - match: '\b(HIT|GUARD|HIT_OR_GUARD|TOUCH_GROUND|BEFORE_EXIT)\b'
+      scope: constant.language
+
+    - match: '\b(AIR_STRONG|AIR_FACE_DOWN|AIR_FACE_UP|AIR_LAUNCH|FORCE_CROUCH)\b'
+      scope: constant.language
+
+    - match: '\b(LOW|HIGH|ANY)\b'
+      scope: constant.language
+
+    - match: '\b(SPECIAL|OVERDRIVE|NORMAL)\b'
+      scope: constant.language
+
+    - match: '\b(STANDING|JUMPING|CROUCHING)\b'
+      scope: constant.language
+
+    - match: '\b(IS_GREATER_OR_EQUAL|IS_LESSER_OR_EQUAL|IS_EQUAL)\b'
+      scope: keyword.operator.logical
+
+    - match: '\b(ADD)\b'
+      scope: keyword.operator.arithmetic
+
+    - match: '\b(gotoLabel)\b'
+      scope: entity.name.label
+
+    - match: '\b(enableJumpCancel)\b'
+      scope: variable.language
+
+
+    
