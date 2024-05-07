@@ -4,29 +4,62 @@ name: BBScript
 file_extensions: [bbscript]
 scope: source.bbscript
 
+variables:
+  # numbers
+  dec_digits: (?:[\d_]*\d)
+  integer_suffix: '[uU][lL]?|[lL][uU]?'
+
+  # characters
+  unicode_char: '(?:\\u\h{4}|\\U\h{8})'
+  escaped_char: '(?:\\[abfnrtv"''\\]|{{unicode_char}}|\\x[0-9a-fA-F]{1,4}|\\[0-9]{1,3})'
+
 contexts:
   main:
+    - include: literals
+    - include: constants
+    - include: types
+
+    # Open function tags
     - match: '\b(upon|beginState|beginLabel|beginSubroutine|Unknown78|beginPreSubroutine|beginPostSubroutine)\b'
-      scope: entity.name.function.bbscript
-
-    - match: '\b(endUpon|endState|endSubroutine|endLabel)\b'
-      scope: entity.name.function.bbscript
-
-    - match: '\b([1-9]\d*|0)\b'
-      scope: constant.numeric.bbscript
-
-    - match: '\b(if|endIf|ifNot|endElse|ifOperation|ifNotInObject|ifOperationInObject)\b'
-      scope: keyword.control.bbscript
-
-    - match: '\b(else)\b'
-      scope: meta.statement.conditional.else.bbscript
-
-    - match: '\bsprite\b'
-      scope: keyword.other.bbscript
+      scope: variable.function
 
     - match: '\b(callSubroutine|callSubroutineWithArgs)\b'
       scope: meta.function-call variable.function
 
+    # conditionals
+    - match: '\b(if|ifNot|ifOperation|ifNotInObject|ifOperationInObject)\b'
+      scope: keyword.control.conditional
+
+    # Close function tags
+    - match: '\b(endUpon|endState|endSubroutine|endLabel|exitState|endElse|endIf)\b'
+      scope: keyword.control
+
+    - match: '\b(else)\b'
+      scope: meta.statement.conditional.else
+
+    - match: '\b(IS_GREATER_OR_EQUAL|IS_LESSER_OR_EQUAL|IS_EQUAL)\b'
+      scope: keyword.operator.logical
+
+    - match: '\b(enableWhiffCancel|hitSoftKnockdown|groundHitEffect|groundBounceCount|counterHitSoftKnockdown)\b'
+      scope: variable.parameter
+
+    - match: '\b(sprite|damage|guardType)\b'
+      scope: keyword.other
+
+    - match: '\b(addGatlingOption|addWhiffCancelOption)\b'
+      scope: keyword.control.import
+
+    - match: '\b(ADD)\b'
+      scope: keyword.operator.arithmetic
+
+    - match: '\b(gotoLabel|gotoIfOperation)\b'
+      scope: entity.name.label
+
+  literals:
+    - match: '\b([1-9]\d*|0)\b'
+      scope: constant.numeric
+  
+  constants:
     - match: '\b(IMMEDIATE|VARIABLE|STATIC|FRAME_STEP)\b'
       scope: constant.language
 
@@ -45,17 +78,7 @@ contexts:
     - match: '\b(STANDING|JUMPING|CROUCHING)\b'
       scope: constant.language
 
-    - match: '\b(IS_GREATER_OR_EQUAL|IS_LESSER_OR_EQUAL|IS_EQUAL)\b'
-      scope: keyword.operator.logical
+  types:
+    - match: '\b(hit|recoveryState)\b'
+      scope: storage.type
 
-    - match: '\b(ADD)\b'
-      scope: keyword.operator.arithmetic
-
-    - match: '\b(gotoLabel)\b'
-      scope: entity.name.label
-
-    - match: '\b(enableJumpCancel)\b'
-      scope: variable.language
-
-
-    
