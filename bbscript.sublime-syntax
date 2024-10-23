@@ -20,22 +20,19 @@ contexts:
     - include: types
 
     # Open function tags
-    - match: '\b(upon|beginState|beginLabel|beginSubroutine|Unknown78|beginPreSubroutine|beginPostSubroutine)\b'
+    - match: '\b(upon|beginState|beginLabel|beginSubroutine|Unknown78|beginPreSubroutine|beginPostSubroutine|addMove|registerMove)\b'
       scope: variable.function
 
     - match: '\b(callSubroutine|callSubroutineWithArgs)\b'
       scope: meta.function-call variable.function
 
     # conditionals
-    - match: '\b(if|ifNot|ifOperation|ifNotInObject|ifOperationInObject)\b'
+    - match: '\b(if|ifNot|ifOperation|ifNotInObject|ifOperationInObject|else|ifOnFrame)\b'
       scope: keyword.control.conditional
 
     # Close function tags
     - match: '\b(endUpon|endState|endSubroutine|endLabel|exitState|endElse|endIf)\b'
       scope: keyword.control
-
-    - match: '\b(else)\b'
-      scope: meta.statement.conditional.else
 
     - match: '\b(IS_GREATER_OR_EQUAL|IS_LESSER_OR_EQUAL|IS_EQUAL)\b'
       scope: keyword.operator.logical
@@ -75,7 +72,7 @@ contexts:
     - match: '\b(SPECIAL|OVERDRIVE|NORMAL)\b'
       scope: constant.language
 
-    - match: '\b(STANDING|JUMPING|CROUCHING)\b'
+    - match: '\b(STANDING|JUMPING|CROUCHING|INPUT_PRESS_S|INPUT_PRESS_L|INPUT_PRESS_M|INPUT_PRESS_H|INPUT_PRESS_U|INPUT_PRESS_THROW|INPUT_ANY_DOWN|INPUT_3|INPUT_214|REQUIRES_50_METER|REQUIRES_100_METER|INPUT_41236|INPUT_4|INPUT_DISSALOW_UP|M_CLOSE_RANGE_FALSE|M_CLOSE_RANGE_TRUE|L_CLOSE_RANGE_FALSE|L_CLOSE_RANGE_TRUE|H_CLOSE_RANGE_TRUE|H_CLOSE_RANGE_FALSE|INPUT_ANY_FORWARD)\b'
       scope: constant.language
 
   types:
